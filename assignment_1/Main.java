@@ -8,7 +8,7 @@ public class Main{
         //String field=args[0];
 
         BufferedReader reader;
-        reader = new BufferedReader(new FileReader("Main.java"));
+        reader = new BufferedReader(new FileReader("metadata.txt"));
         String line = reader.readLine();
         while (line != null) {
             System.out.println(line);
