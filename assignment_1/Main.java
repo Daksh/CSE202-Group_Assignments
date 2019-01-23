@@ -25,8 +25,12 @@ public class Main{
             assert tokens.length==3: "Metadata file-format not valid. \nIn one of the rows, found "+tokens.length+" entries instead of 3";
             metaD.add(tokens);
         }
+//        System.out.println("MetaD has "+metaD.size());   
+        in.close();
         
-//        System.out.println("MetaD has "+metaD.size());
+        
+        in = new BufferedReader(new FileReader("db.data"));
+        
         in.close();
     }
 }
