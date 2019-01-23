@@ -1,0 +1,3 @@
+Name,C,20
+Age,I,4
+Gender,C,1
