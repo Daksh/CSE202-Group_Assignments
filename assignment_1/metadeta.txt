@@ -1,0 +1,4 @@
+ID,I,4
+Item_Name,C,10
+Price,F,8
+Inventory,I,4
