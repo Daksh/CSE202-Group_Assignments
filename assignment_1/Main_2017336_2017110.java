@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Main{
+public class Main_2017336_2017110{
     public static void main(String args[]) throws IOException{
     	String inputField="";
     	try{
