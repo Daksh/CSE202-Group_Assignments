@@ -15,7 +15,9 @@ The possible transactions are:
  * Total_Reservations(): returns the sum total of all reservations on all flights.
  * Transfer(F1,F2,i): transfer passenger i from flight F1 to F2. This transaction should have no impact if the passenger is not found in F1 or there is no room in F2. 
 */
-public class Transaction_Thread_2017336_2017110 {
+public class Transaction_Thread_2017336_2017110 extends Thread{
+	private static final int REPEAT_COUNT = 100; 
+	
 	Random rand = new Random();
 	
 	public void executeARandomTxn() {
@@ -24,9 +26,12 @@ public class Transaction_Thread_2017336_2017110 {
 		txn.run();
 	}
 	
-	public void start(int repCount) {
-		for(int i=0; i<repCount; i++)
+	@Override
+	public void run() {
+		System.out.println("Running a thread");
+		for(int i=0; i<REPEAT_COUNT; i++)
 			this.executeARandomTxn();
 	}
+	
 
 }
