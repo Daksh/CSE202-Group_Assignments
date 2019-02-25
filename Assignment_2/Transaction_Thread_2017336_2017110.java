@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /*
 
 Each transaction thread (TT) should have the following structure:
@@ -14,5 +16,17 @@ The possible transactions are:
  * Transfer(F1,F2,i): transfer passenger i from flight F1 to F2. This transaction should have no impact if the passenger is not found in F1 or there is no room in F2. 
 */
 public class Transaction_Thread_2017336_2017110 {
+	Random rand = new Random();
+	
+	public void executeARandomTxn() {
+		int n = rand.nextInt(5); // n in range [0,4]
+		Transaction_2017336_2017110 txn = new Transaction_2017336_2017110(n);
+		txn.run();
+	}
+	
+	public void start(int repCount) {
+		for(int i=0; i<repCount; i++)
+			this.executeARandomTxn();
+	}
 
 }
