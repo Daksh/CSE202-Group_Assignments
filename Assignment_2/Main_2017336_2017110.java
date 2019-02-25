@@ -1,10 +1,9 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-
+/*
+ * Does pre-processing,
+ * 	Add Passengers, Flights
+ */
 public class Main_2017336_2017110{
-    public static void main(String args[]) throws IOException{
+    public static void main(String args[]){
 
     }
 }
