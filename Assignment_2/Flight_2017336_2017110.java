@@ -11,7 +11,8 @@ public class Flight_2017336_2017110 {
 	public Flight_2017336_2017110(int i) {
 		this.id = i;
 		this.capacity = 10+rand.nextInt(Main_2017336_2017110.NUM_PASSENGERS);
-		System.out.println("Creating a flight: ID "+this.id+"\t capacity "+this.capacity);
+		if(Main_2017336_2017110.printDesc)
+			System.out.println("Creating a flight: ID "+this.id+"\t capacity "+this.capacity);
 	}
 	
 	public void addPassenger(Passenger_2017336_2017110 p) {

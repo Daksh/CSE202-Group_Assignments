@@ -28,7 +28,8 @@ public class Transaction_Thread_2017336_2017110 extends Thread{
 	
 	@Override
 	public void run() {
-		System.out.println("Running a thread");
+		if(Main_2017336_2017110.printDesc)
+			System.out.println("Running a thread");
 		for(int i=0; i<REPEAT_COUNT; i++)
 			this.executeARandomTxn();
 	}

@@ -21,11 +21,13 @@ public class Transaction_2017336_2017110 {
 			this.cancel(fid,pid);
 			break;
 		case 2:
-			System.out.println("Flights List of Passenger #"+pid+": "+this.my_flights(pid));
+			if(Main_2017336_2017110.printDesc)
+				System.out.println("Flights List of Passenger #"+pid+": "+this.my_flights(pid));
 			break;
 		case 3:
 			int t = this.total_reservations();
-			System.out.println("Total Number of Reservations: "+t);
+			if(Main_2017336_2017110.printDesc)
+				System.out.println("Total Number of Reservations: "+t);
 			break;
 		case 4:
 			this.transfer(fid,fid2,pid);
@@ -35,16 +37,19 @@ public class Transaction_2017336_2017110 {
 	
 	/*
 	 * Reserve(F, i): reserve a seat for passenger with id i on flight F, where i > 0.
+	 * 
+	 * Needs to write on a particular flight, particular passenger and totalReservations
 	 */
 	public void reserve(int fid, int pid) {
-		CCM_2017336_2017110.getLock();
+		CCM_2017336_2017110.getExclusiveLock();
 		
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
 		Flight_2017336_2017110 flight = Database_2017336_2017110.getFlight(fid);
 		assert fid == flight.id;
 		assert passenger.id == pid;
 		
-		System.out.println("Reserving Flight #"+fid+" for Passenger #"+pid);
+		if(Main_2017336_2017110.printDesc)
+			System.out.println("Reserving Flight #"+fid+" for Passenger #"+pid);
 		
 		if(!reservationExists(passenger, flight) && flight.possibleAddition()) {
 			flight.addPassenger(passenger);
@@ -52,25 +57,28 @@ public class Transaction_2017336_2017110 {
 			Database_2017336_2017110.increaseTotalReservations();
 		}
 
-		CCM_2017336_2017110.unLock();
+		CCM_2017336_2017110.unLockExclusive();
 	}
 	
+	/*
+	/* 	MUST BE CALLED WITH AN EXISTING LOCK (S)
+	 *  Needs, Read access on a particular passenger, particular flight
+	 */
 	private boolean reservationExists(Passenger_2017336_2017110 passenger, Flight_2017336_2017110 flight) {
-		//MUST BE CALLED WITH A LOCK
-		if(passenger.checkFlight(flight) && flight.checkPassenger(passenger)) {
+		if(passenger.checkFlight(flight) && flight.checkPassenger(passenger))
 			return true;
-		} else if(!passenger.checkFlight(flight) && !flight.checkPassenger(passenger)) {
+		else if(!passenger.checkFlight(flight) && !flight.checkPassenger(passenger))
 			return false;
-		} 
 		assert 2==3;
 		return false;
 	}
 	
 	/*
 	 * Cancel(F, i): cancel reservation for passenger with id i from flight F.
+	 * Needs to write on a particular flight, particular passenger and totalReservations
 	 */
 	public void cancel(int fid, int pid) {
-		CCM_2017336_2017110.getLock();
+		CCM_2017336_2017110.getExclusiveLock();
 		
 		Flight_2017336_2017110 flight = Database_2017336_2017110.getFlight(fid);
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
@@ -86,41 +94,51 @@ public class Transaction_2017336_2017110 {
 			Database_2017336_2017110.reduceTotalReservations();
 		}
 		
-		CCM_2017336_2017110.unLock();
+		CCM_2017336_2017110.unLockExclusive();
 	}
 	
 	/*
 	 * My_Flights(id): returns the set of flights on which passenger i has a reservation.
+	 * Needs Read Access on {a set of flights, and a passenger} 
 	 */
 	public String my_flights(int pid) {
-		CCM_2017336_2017110.getLock();
+		CCM_2017336_2017110.getSharedLock();
 		
 		String r = Database_2017336_2017110.getPassenger(pid).getAllFlights();
 		
-		CCM_2017336_2017110.unLock();
+		CCM_2017336_2017110.unLockShared();
 
 		return r;
 	}
 	
 	/*
 	 * Total_Reservations(): returns the sum total of all reservations on all flights.
+	 * Needs Read Access only on the variable TotalReservations
 	 */
 	public int total_reservations() {
-		CCM_2017336_2017110.getLock();
+		CCM_2017336_2017110.getSharedLock();
 		
 	    int val = Database_2017336_2017110.getTotalReservations();
-		CCM_2017336_2017110.unLock();
+	    
+		CCM_2017336_2017110.unLockShared();
 		return val;
 	}
 	
 	/*
-	 * Transfer(F1,F2,i): transfer passenger i from flight F1 to F2. This transaction should have no impact if the passenger is not found in F1 or there is no room in F2.
+	 * Transfer(F1,F2,i): transfer passenger i from flight F1 to F2. 
+	 * This transaction should have no impact if the passenger is not 
+	 * found in F1 or there is no room in F2.
+	 * 
+	 * Some locks are taken in the functions called. 
+	 * The part done here, needs read lock 
+	 * 1. flight fid_to
+	 * 2. flight fid_from
+	 * 3. All Passengers of fid_from
 	 */
 	public void transfer(int fid_from, int fid_to, int pid) {
-		CCM_2017336_2017110.getLock();
-		
+		CCM_2017336_2017110.getSharedLock();
 		boolean check = Database_2017336_2017110.getFlight(fid_to).possibleAddition() && Database_2017336_2017110.getFlight(fid_from).has(pid); 
-		CCM_2017336_2017110.unLock();
+		CCM_2017336_2017110.unLockShared();
 		
 		if(check) {
 			this.cancel(fid_from,pid);
