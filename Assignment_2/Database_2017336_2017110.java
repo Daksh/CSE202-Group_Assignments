@@ -27,6 +27,10 @@ public class Database_2017336_2017110 {
 		sleep();
 		totalReservations-=1;
 	}
+	public static void increaseTotalReservations() {//increases by exactly 1
+		sleep();
+		totalReservations+=1;
+	}
 	
 	public static Flight_2017336_2017110 getFlight(int id) {
 		sleep();

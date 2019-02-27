@@ -34,6 +34,10 @@ public class Flight_2017336_2017110 {
 		}
 		return exists;
 	}
+	
+	public boolean checkPassenger(Passenger_2017336_2017110 passenger) {
+		return this.passengersList.contains(passenger);
+	}
 
 	public void removePassenger(Passenger_2017336_2017110 passenger) {
 		this.passengersList.remove(passenger);

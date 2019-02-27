@@ -20,6 +20,10 @@ public class Passenger_2017336_2017110 {
 			return ret.substring(0, ret.length()-2);
 		return ret;
 	}
+	
+	public boolean checkFlight(Flight_2017336_2017110 flight) {
+		return this.myFlights.contains(flight);
+	}
 
 	public void removeFlight(Flight_2017336_2017110 flight) {
 		this.myFlights.remove(flight);
