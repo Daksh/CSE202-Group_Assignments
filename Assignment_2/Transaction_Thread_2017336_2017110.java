@@ -20,7 +20,7 @@ public class Transaction_Thread_2017336_2017110 extends Thread{
 	
 	Random rand = new Random();
 	
-	public void executeARandomTxn() {
+	public void executeARandomTxn() throws InterruptedException {
 		int n = rand.nextInt(5); // n in range [0,4]
 		Transaction_2017336_2017110 txn = new Transaction_2017336_2017110(n);
 		txn.run();
@@ -28,9 +28,14 @@ public class Transaction_Thread_2017336_2017110 extends Thread{
 	
 	@Override
 	public void run() {
-		System.out.println("Running a thread");
+		if(Main_2017336_2017110.printDesc)
+			System.out.println("Running a thread");
 		for(int i=0; i<REPEAT_COUNT; i++)
-			this.executeARandomTxn();
+			try {
+				this.executeARandomTxn();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	}
 	
 
