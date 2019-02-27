@@ -5,8 +5,8 @@
 public class Main_2017336_2017110{
 	public final static int NUM_FLIGHTS = 5;
 	public final static int NUM_PASSENGERS = 60;
-	public final static boolean printDesc = false;
-	public final static boolean printDebug = false;
+	public final static boolean printDesc = true;
+	public final static boolean printDebug = true;
 	
 	private static int NUM_THREADS = 6;
 	
