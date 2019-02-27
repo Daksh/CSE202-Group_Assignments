@@ -38,14 +38,32 @@ public class Transaction_2017336_2017110 {
 	 */
 	public void reserve(int fid, int pid) {
 		CCM_2017336_2017110.getLock();
-
+		
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
 		Flight_2017336_2017110 flight = Database_2017336_2017110.getFlight(fid);
-		flight.addPassenger(passenger);
-		passenger.addFlight(flight);
-		Database_2017336_2017110.increaseTotalReservations();
+		assert fid == flight.id;
+		assert passenger.id == pid;
+		
+		System.out.println("Reserving Flight #"+fid+" for Passenger #"+pid);
+		
+		if(!reservationExists(passenger, flight) && flight.possibleAddition()) {
+			flight.addPassenger(passenger);
+			passenger.addFlight(flight);
+			Database_2017336_2017110.increaseTotalReservations();
+		}
 
 		CCM_2017336_2017110.unLock();
+	}
+	
+	private boolean reservationExists(Passenger_2017336_2017110 passenger, Flight_2017336_2017110 flight) {
+		//MUST BE CALLED WITH A LOCK
+		if(passenger.checkFlight(flight) && flight.checkPassenger(passenger)) {
+			return true;
+		} else if(!passenger.checkFlight(flight) && !flight.checkPassenger(passenger)) {
+			return false;
+		} 
+		assert 2==3;
+		return false;
 	}
 	
 	/*
@@ -57,7 +75,7 @@ public class Transaction_2017336_2017110 {
 		Flight_2017336_2017110 flight = Database_2017336_2017110.getFlight(fid);
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
 		
-		if(passenger.checkFlight(flight) && flight.checkPassenger(passenger)) {
+		if(reservationExists(passenger, flight)) {
 			//remove flight-> passenger
 			flight.removePassenger(Database_2017336_2017110.getPassenger(pid));
 			
@@ -66,10 +84,6 @@ public class Transaction_2017336_2017110 {
 			
 			//reduce db -> totalReservations
 			Database_2017336_2017110.reduceTotalReservations();
-		} else if(!passenger.checkFlight(flight) && !flight.checkPassenger(passenger)) {
-			
-		} else {
-			assert 2==3;
 		}
 		
 		CCM_2017336_2017110.unLock();

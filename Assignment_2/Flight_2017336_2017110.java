@@ -16,10 +16,7 @@ public class Flight_2017336_2017110 {
 	
 	public void addPassenger(Passenger_2017336_2017110 p) {
 		assert p!=null;
-		if(this.passengersList.size()<this.capacity) {
-			this.passengersList.add(p);
-			p.addFlight(this);
-		}
+		this.passengersList.add(p);
 	}
 	
 	public boolean possibleAddition() {
