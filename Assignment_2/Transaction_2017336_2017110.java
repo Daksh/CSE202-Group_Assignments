@@ -37,17 +37,19 @@ public class Transaction_2017336_2017110 {
 	 * Reserve(F, i): reserve a seat for passenger with id i on flight F, where i > 0.
 	 */
 	public void reserve(int fid, int pid) {
-		Database_2017336_2017110.getLock();
+		CCM_2017336_2017110.getLock();
+
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
 		Database_2017336_2017110.getFlight(fid).addPassenger(passenger);
-		Database_2017336_2017110.unLock();
+
+		CCM_2017336_2017110.unLock();
 	}
 	
 	/*
 	 * Cancel(F, i): cancel reservation for passenger with id i from flight F.
 	 */
 	public void cancel(int fid, int pid) {
-		Database_2017336_2017110.getLock();
+		CCM_2017336_2017110.getLock();
 		
 		//remove flight-> passenger
 		Database_2017336_2017110.getFlight(fid).removePassenger(Database_2017336_2017110.getPassenger(pid));
@@ -58,19 +60,19 @@ public class Transaction_2017336_2017110 {
 		//reduce db -> totalReservations
 		Database_2017336_2017110.reduceTotalReservations();
 		
-		Database_2017336_2017110.unLock();
+		CCM_2017336_2017110.unLock();
 	}
 	
 	/*
 	 * My_Flights(id): returns the set of flights on which passenger i has a reservation.
 	 */
 	public String my_flights(int pid) {
-		Database_2017336_2017110.getLock();
+		CCM_2017336_2017110.getLock();
 		
 		String r = Database_2017336_2017110.getPassenger(pid).getAllFlights();
 		
-		Database_2017336_2017110.unLock();
-		
+		CCM_2017336_2017110.unLock();
+
 		return r;
 	}
 	
@@ -78,9 +80,10 @@ public class Transaction_2017336_2017110 {
 	 * Total_Reservations(): returns the sum total of all reservations on all flights.
 	 */
 	public int total_reservations() {
-		Database_2017336_2017110.getLock();
-		int val = Database_2017336_2017110.getTotalReservations();
-		Database_2017336_2017110.unLock();
+		CCM_2017336_2017110.getLock();
+		
+	    int val = Database_2017336_2017110.getTotalReservations();
+		CCM_2017336_2017110.unLock();
 		return val;
 	}
 	
@@ -88,9 +91,10 @@ public class Transaction_2017336_2017110 {
 	 * Transfer(F1,F2,i): transfer passenger i from flight F1 to F2. This transaction should have no impact if the passenger is not found in F1 or there is no room in F2.
 	 */
 	public void transfer(int fid_from, int fid_to, int pid) {
-		Database_2017336_2017110.getLock();
+		CCM_2017336_2017110.getLock();
+		
 		boolean check = Database_2017336_2017110.getFlight(fid_to).possibleAddition() && Database_2017336_2017110.getFlight(fid_from).has(pid); 
-		Database_2017336_2017110.unLock();
+		CCM_2017336_2017110.unLock();
 		
 		if(check) {
 			this.cancel(fid_from,pid);
