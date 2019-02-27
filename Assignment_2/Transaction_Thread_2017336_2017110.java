@@ -21,8 +21,12 @@ public class Transaction_Thread_2017336_2017110 extends Thread{
 	Random rand = new Random();
 	
 	public void executeARandomTxn() throws InterruptedException {
+		Transaction_2017336_2017110 txn;
+		
 		int n = rand.nextInt(5); // n in range [0,4]
-		Transaction_2017336_2017110 txn = new Transaction_2017336_2017110(n);
+//		if(n>4)
+//			txn = new Transaction_2017336_2017110(0);
+		txn = new Transaction_2017336_2017110(n);
 		txn.run();
 	}
 	

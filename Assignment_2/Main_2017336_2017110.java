@@ -12,7 +12,7 @@ public class Main_2017336_2017110{
 	
     public static void main(String args[]){
 //    	for(NUM_THREADS=1;NUM_THREADS<21; NUM_THREADS++) {
-    	for(NUM_THREADS=6;NUM_THREADS==6; NUM_THREADS++) {
+    	for(NUM_THREADS=3;NUM_THREADS==3; NUM_THREADS++) {
     		CCM_2017336_2017110.initLock();
         	Transaction_Thread_2017336_2017110[] threadArray = new Transaction_Thread_2017336_2017110[NUM_THREADS];
         	long startTime = System.nanoTime();

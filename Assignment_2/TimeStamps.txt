@@ -20,3 +20,27 @@ Took: 37104ms for 18 threads: Throughput: 48.511658
 Took: 43191ms for 19 threads: Throughput: 43.990112
 Took: 45160ms for 20 threads: Throughput: 44.286472
 
+Uniform Distribution
+Took: 13737ms for 6 threads: Throughput: 43.675285
+
+Skewed on 0
+int n = rand.nextInt(10); // n in range [0,4]
+		if(n>4)
+			txn = new Transaction_2017336_2017110(0);
+		txn = new Transaction_2017336_2017110(n);
+Took: 3642ms for 3 threads: Throughput: 82.35349
+
+Skewed on 1
+Took: 3636ms for 3 threads: Throughput: 82.49924
+
+Skewed on 2
+Took: 3633ms for 3 threads: Throughput: 82.56668
+
+Skewed on 3
+Took: 3665ms for 3 threads: Throughput: 81.83962
+
+Skewed on 4
+Took: 3842ms for 3 threads: Throughput: 78.070305
+
+
+
