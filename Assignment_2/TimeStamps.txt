@@ -1,4 +1,4 @@
-Serial - without S/X
+v1 - Serial
 Took: 2770ms for 1 threads: Throughput: 36.09395
 Took: 4688ms for 2 threads: Throughput: 42.658737
 Took: 6284ms for 3 threads: Throughput: 47.73402
@@ -19,3 +19,4 @@ Took: 36492ms for 17 threads: Throughput: 46.585217
 Took: 37104ms for 18 threads: Throughput: 48.511658
 Took: 43191ms for 19 threads: Throughput: 43.990112
 Took: 45160ms for 20 threads: Throughput: 44.286472
+
