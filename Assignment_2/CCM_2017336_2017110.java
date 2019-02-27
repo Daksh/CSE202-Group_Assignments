@@ -10,7 +10,13 @@ public final class CCM_2017336_2017110 {
 		Thread currentThread = Thread.currentThread();
 	    System.out.println("Thread #" + currentThread.getId()+" doing getLock()");   
 
-		while(databaseLock==true); //busy wait
+		while(databaseLock==true) { //busy wait
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		System.out.println("Thread #" + currentThread.getId()+" got the Lock");
 		databaseLock=true;

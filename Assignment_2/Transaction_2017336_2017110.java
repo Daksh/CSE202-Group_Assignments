@@ -44,9 +44,7 @@ public class Transaction_2017336_2017110 {
 
 		
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
-		System.out.println("Thread #" + currentThread.getId()+" chkpt 1");
 		Database_2017336_2017110.getFlight(fid).addPassenger(passenger);
-		System.out.println("Thread #" + currentThread.getId()+" chkpt 2");
 		CCM_2017336_2017110.unLock();
 	}
 	
