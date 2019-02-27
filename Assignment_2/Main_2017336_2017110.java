@@ -6,7 +6,7 @@ public class Main_2017336_2017110{
 	public final static int NUM_FLIGHTS = 5;
 	public final static int NUM_PASSENGERS = 60;
 	public final static boolean printDesc = false;
-	public final static boolean printDebug = true;
+	public final static boolean printDebug = false;
 	
 	private static int NUM_THREADS = 6;
 	
@@ -44,7 +44,7 @@ public class Main_2017336_2017110{
         	long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
         	
         	//Throughput is the number of transactions per second
-        	System.out.println("Took: "+duration/1000000+"ms for "+NUM_THREADS+" threads: Throughput: "+(1000f*100*NUM_THREADS)/duration);
+        	System.out.println("Took: "+duration/1000000+"ms for "+NUM_THREADS+" threads: Throughput: "+(100f*NUM_THREADS)/(duration/1000000000f));
     	}	
     }
 }
