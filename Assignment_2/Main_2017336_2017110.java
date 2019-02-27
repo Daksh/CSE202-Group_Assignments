@@ -8,6 +8,8 @@ public class Main_2017336_2017110{
 	private final static int NUM_THREADS = 6;
 	
     public static void main(String args[]){
+    	CCM_2017336_2017110.initLock();
+    	
     	for(int i=1; i<=NUM_FLIGHTS; i++) {
     		Flight_2017336_2017110 f = new Flight_2017336_2017110(i);
     		Database_2017336_2017110.addFlight(i,f);
