@@ -39,12 +39,9 @@ public class Transaction_2017336_2017110 {
 	public void reserve(int fid, int pid) {
 		CCM_2017336_2017110.getLock();
 
-		Thread currentThread = Thread.currentThread();
-	    System.out.println("Thread #" + currentThread.getId()+" will perform reserve");
-
-		
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
 		Database_2017336_2017110.getFlight(fid).addPassenger(passenger);
+
 		CCM_2017336_2017110.unLock();
 	}
 	
@@ -53,9 +50,6 @@ public class Transaction_2017336_2017110 {
 	 */
 	public void cancel(int fid, int pid) {
 		CCM_2017336_2017110.getLock();
-		
-		Thread currentThread = Thread.currentThread();
-	    System.out.println("Thread #" + currentThread.getId()+" will perform cancel");
 		
 		//remove flight-> passenger
 		Database_2017336_2017110.getFlight(fid).removePassenger(Database_2017336_2017110.getPassenger(pid));
@@ -75,14 +69,10 @@ public class Transaction_2017336_2017110 {
 	public String my_flights(int pid) {
 		CCM_2017336_2017110.getLock();
 		
-		Thread currentThread = Thread.currentThread();
-	    System.out.println("Thread #" + currentThread.getId()+" will perform my_flights");
-
-		
 		String r = Database_2017336_2017110.getPassenger(pid).getAllFlights();
 		
 		CCM_2017336_2017110.unLock();
-		
+
 		return r;
 	}
 	
@@ -91,9 +81,6 @@ public class Transaction_2017336_2017110 {
 	 */
 	public int total_reservations() {
 		CCM_2017336_2017110.getLock();
-		
-		Thread currentThread = Thread.currentThread();
-	    System.out.println("Thread #" + currentThread.getId()+" will perform total_reservations");
 		
 	    int val = Database_2017336_2017110.getTotalReservations();
 		CCM_2017336_2017110.unLock();
@@ -105,9 +92,6 @@ public class Transaction_2017336_2017110 {
 	 */
 	public void transfer(int fid_from, int fid_to, int pid) {
 		CCM_2017336_2017110.getLock();
-		
-		Thread currentThread = Thread.currentThread();
-	    System.out.println("Thread #" + currentThread.getId()+" will perform transfer");
 		
 		boolean check = Database_2017336_2017110.getFlight(fid_to).possibleAddition() && Database_2017336_2017110.getFlight(fid_from).has(pid); 
 		CCM_2017336_2017110.unLock();
