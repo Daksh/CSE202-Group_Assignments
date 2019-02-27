@@ -7,7 +7,7 @@ public class Transaction_2017336_2017110 {
 	public Transaction_2017336_2017110(int tid) {
 		this.id=tid;
 	}
-	public void run() {
+	public void run() throws InterruptedException {
 		//Generate Random Values, which are passed to the functions below
 		int fid = 1+rand.nextInt(Main_2017336_2017110.NUM_FLIGHTS);
 		int fid2 = 1+rand.nextInt(Main_2017336_2017110.NUM_FLIGHTS);
@@ -40,7 +40,7 @@ public class Transaction_2017336_2017110 {
 	 * 
 	 * Needs to write on a particular flight, particular passenger and totalReservations
 	 */
-	public void reserve(int fid, int pid) {
+	public void reserve(int fid, int pid) throws InterruptedException {
 		CCM_2017336_2017110.getExclusiveLock();
 		
 		Passenger_2017336_2017110 passenger = Database_2017336_2017110.getPassenger(pid);
@@ -77,7 +77,7 @@ public class Transaction_2017336_2017110 {
 	 * Cancel(F, i): cancel reservation for passenger with id i from flight F.
 	 * Needs to write on a particular flight, particular passenger and totalReservations
 	 */
-	public void cancel(int fid, int pid) {
+	public void cancel(int fid, int pid) throws InterruptedException {
 		CCM_2017336_2017110.getExclusiveLock();
 		
 		Flight_2017336_2017110 flight = Database_2017336_2017110.getFlight(fid);
@@ -101,7 +101,7 @@ public class Transaction_2017336_2017110 {
 	 * My_Flights(id): returns the set of flights on which passenger i has a reservation.
 	 * Needs Read Access on {a set of flights, and a passenger} 
 	 */
-	public String my_flights(int pid) {
+	public String my_flights(int pid) throws InterruptedException {
 		CCM_2017336_2017110.getSharedLock();
 		String r = Database_2017336_2017110.getPassenger(pid).getAllFlights();
 		CCM_2017336_2017110.unLockShared();
@@ -113,7 +113,7 @@ public class Transaction_2017336_2017110 {
 	 * Total_Reservations(): returns the sum total of all reservations on all flights.
 	 * Needs Read Access only on the variable TotalReservations
 	 */
-	public int total_reservations() {
+	public int total_reservations() throws InterruptedException {
 		CCM_2017336_2017110.getSharedLock();
 	    int val = Database_2017336_2017110.getTotalReservations();
 		CCM_2017336_2017110.unLockShared();
@@ -132,7 +132,7 @@ public class Transaction_2017336_2017110 {
 	 * 2. flight fid_from
 	 * 3. All Passengers of fid_from
 	 */
-	public void transfer(int fid_from, int fid_to, int pid) {
+	public void transfer(int fid_from, int fid_to, int pid) throws InterruptedException {
 		CCM_2017336_2017110.getSharedLock();
 		boolean check = Database_2017336_2017110.getFlight(fid_to).possibleAddition() && Database_2017336_2017110.getFlight(fid_from).has(pid); 
 		CCM_2017336_2017110.unLockShared();

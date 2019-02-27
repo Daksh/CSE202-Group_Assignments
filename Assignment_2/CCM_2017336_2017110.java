@@ -1,11 +1,7 @@
+import java.util.ArrayList;
 
 public final class CCM_2017336_2017110 {
 	private static int databaseLock;
-	
-	private static final SyncLock_2017336_2017110 SLOCK = new SyncLock_2017336_2017110();
-	private static final SyncLock_2017336_2017110 SLOCK_2 = new SyncLock_2017336_2017110();
-	private static final SyncLock_2017336_2017110 XLOCK = new SyncLock_2017336_2017110();
-	
 	/*
 	 * 0 -> Unlocked
 	 * 1 -> Exclusive Lock (X)
@@ -14,27 +10,28 @@ public final class CCM_2017336_2017110 {
 	 * 3 denotes, 2 threads have the shared lock, and so on... 
 	 */
 	
+	private static ArrayList<Thread> xWaiting = new ArrayList<Thread>();
+	private static ArrayList<Thread> sWaiting = new ArrayList<Thread>();
+	
+	private static final SyncLock_2017336_2017110 LOCK_Obj = new SyncLock_2017336_2017110();
+	
 	public static void initLock() {
 		databaseLock = 0;
 	}
 	
-	private static void sleepMinimal() {
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void getSharedLock() {
-		synchronized(SLOCK) {
+	public static void getSharedLock() throws InterruptedException {
+		synchronized(LOCK_Obj) {
 			assert databaseLock>=0;
 			Thread currentThread = Thread.currentThread();
 			if(Main_2017336_2017110.printDebug) System.out.println("Thread #" + currentThread.getId()+" doing getSharedLock(), currently, lock:"+databaseLock);   
 			
-			while(databaseLock==1) { //busy wait, only when there is an X lock
-				sleepMinimal();
+			if(databaseLock==1) {
+				sWaiting.add(currentThread);//at the end
+				currentThread.wait();
 			}
+//			while(databaseLock==1) { //busy wait, only when there is an X lock
+//				Thread.sleep(10);
+//			}
 			
 			if(databaseLock==0)
 				databaseLock=2;
@@ -45,15 +42,19 @@ public final class CCM_2017336_2017110 {
 		}
 	}
 	
-	public static void getExclusiveLock() {
-		synchronized(XLOCK) {
+	public static void getExclusiveLock() throws InterruptedException {
+		synchronized(LOCK_Obj) {
 			assert databaseLock>=0;
 			Thread currentThread = Thread.currentThread();
 			if(Main_2017336_2017110.printDebug) System.out.println("Thread #" + currentThread.getId()+" doing getXLock(), currently, lock:"+databaseLock);
 			
-			while(databaseLock!=0) { //busy wait, when lock is NOT unlocked
-				sleepMinimal();
+			if(databaseLock!=0) {
+				xWaiting.add(currentThread);
+				currentThread.wait();
 			}
+//			while(databaseLock!=0) { //busy wait, when lock is NOT unlocked
+//				Thread.sleep(10);
+//			}
 			
 			databaseLock=1;//only when databaseLock was 0
 			
@@ -61,12 +62,12 @@ public final class CCM_2017336_2017110 {
 		}
 	}
 
-	public static void unLockShared() {
-		synchronized (SLOCK_2) {
+	public static void unLockShared() throws InterruptedException {
+		synchronized (LOCK_Obj) {
 			assert databaseLock>=2;		
 			Thread currentThread = Thread.currentThread();
 			if(Main_2017336_2017110.printDebug) System.out.println("Thread #" + currentThread.getId()+" doing unLockS(), currently, lock:"+databaseLock);
-			sleepMinimal();
+			Thread.sleep(10);
 		    if(databaseLock==2)
 		    	databaseLock = 0;
 		    else
@@ -75,12 +76,12 @@ public final class CCM_2017336_2017110 {
 		    if(Main_2017336_2017110.printDebug) System.out.println("Thread #" + currentThread.getId()+" got UnlockedS, currently, lock:"+databaseLock);
 		}
 	}
-	public static void unLockExclusive() {
-		synchronized (SLOCK_2) {
+	public static void unLockExclusive() throws InterruptedException {
+		synchronized (LOCK_Obj) {
 		    assert databaseLock==1;
 		    Thread currentThread = Thread.currentThread();
 		    if(Main_2017336_2017110.printDebug) System.out.println("Thread #" + currentThread.getId()+" doing unLockX(), currently, lock:"+databaseLock);
-		    sleepMinimal();
+		    Thread.sleep(10);
 		    databaseLock = 0;
 		    
 		    if(Main_2017336_2017110.printDebug) System.out.println("Thread #" + currentThread.getId()+" got UnlockedX, currently, lock:"+databaseLock);

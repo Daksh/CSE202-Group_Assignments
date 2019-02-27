@@ -42,7 +42,9 @@ public class Main_2017336_2017110{
         	
         	long endTime = System.nanoTime();
         	long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-        	System.out.println("Took: "+duration/1000000+"ms for "+NUM_THREADS+" threads: Throughput: "+(1000000f*100*NUM_THREADS)/duration);
+        	
+        	//Throughput is the number of transactions per second
+        	System.out.println("Took: "+duration/1000000+"ms for "+NUM_THREADS+" threads: Throughput: "+(1000f*100*NUM_THREADS)/duration);
     	}	
     }
 }
