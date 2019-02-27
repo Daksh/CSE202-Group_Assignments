@@ -5,13 +5,14 @@
 public class Main_2017336_2017110{
 	public final static int NUM_FLIGHTS = 5;
 	public final static int NUM_PASSENGERS = 60;
-	public final static boolean printDesc = true;
+	public final static boolean printDesc = false;
+	public final static boolean printDebug = true;
 	
 	private static int NUM_THREADS = 6;
 	
     public static void main(String args[]){
-//    	for(NUM_THREADS=1;NUM_THREADS<21; NUM_THREADS++) {
-    	for(NUM_THREADS=2;NUM_THREADS==2; NUM_THREADS++) {
+    	for(NUM_THREADS=1;NUM_THREADS<21; NUM_THREADS++) {
+//    	for(NUM_THREADS=8;NUM_THREADS==8; NUM_THREADS++) {
     		CCM_2017336_2017110.initLock();
         	Transaction_Thread_2017336_2017110[] threadArray = new Transaction_Thread_2017336_2017110[NUM_THREADS];
         	long startTime = System.nanoTime();
@@ -29,6 +30,8 @@ public class Main_2017336_2017110{
         		threadArray[i] = new Transaction_Thread_2017336_2017110();
         		threadArray[i].start();
         	}
+        	
+        	//Wait for all the threads to return from their executions
         	for(int i=0; i<NUM_THREADS; i++) {
         		try {
     				threadArray[i].join();
@@ -36,9 +39,10 @@ public class Main_2017336_2017110{
     				e1.printStackTrace();
     			}
         	}
+        	
         	long endTime = System.nanoTime();
         	long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-        	System.out.println("Took: "+duration/1000000+"ms for "+NUM_THREADS+" threads: Throughput: "+duration/(1000000f*100*NUM_THREADS));
+        	System.out.println("Took: "+duration/1000000+"ms for "+NUM_THREADS+" threads: Throughput: "+(1000000f*100*NUM_THREADS)/duration);
     	}	
     }
 }

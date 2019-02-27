@@ -1,0 +1,23 @@
+Serial - without S/X
+Took: 2902ms for 1 threads: Throughput: 29.025465
+Took: 4822ms for 2 threads: Throughput: 24.111364
+Took: 7772ms for 3 threads: Throughput: 25.90701
+Took: 10064ms for 4 threads: Throughput: 25.16164
+Took: 11472ms for 5 threads: Throughput: 22.945536
+Took: 14359ms for 6 threads: Throughput: 23.931767
+Took: 17010ms for 7 threads: Throughput: 24.300158
+Took: 20133ms for 8 threads: Throughput: 25.166807
+Took: 21747ms for 9 threads: Throughput: 24.163372
+Took: 20606ms for 10 threads: Throughput: 20.606152
+Took: 25540ms for 11 threads: Throughput: 23.218285
+Took: 30376ms for 12 threads: Throughput: 25.313915
+Took: 32972ms for 13 threads: Throughput: 25.363508
+Took: 35763ms for 14 threads: Throughput: 25.545132
+Took: 38365ms for 15 threads: Throughput: 25.576904
+Took: 39471ms for 16 threads: Throughput: 24.669533
+Took: 44935ms for 17 threads: Throughput: 26.432703
+Took: 41179ms for 18 threads: Throughput: 22.877628
+Took: 46271ms for 19 threads: Throughput: 24.353458
+Took: 50634ms for 20 threads: Throughput: 25.317492
+
+Serial - with S/X

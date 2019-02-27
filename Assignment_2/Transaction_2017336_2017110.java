@@ -102,13 +102,9 @@ public class Transaction_2017336_2017110 {
 	 * Needs Read Access on {a set of flights, and a passenger} 
 	 */
 	public String my_flights(int pid) {
-//		CCM_2017336_2017110.getSharedLock();
-		CCM_2017336_2017110.getExclusiveLock();
-		
+		CCM_2017336_2017110.getSharedLock();
 		String r = Database_2017336_2017110.getPassenger(pid).getAllFlights();
-		
-//		CCM_2017336_2017110.unLockShared();
-		CCM_2017336_2017110.unLockExclusive();
+		CCM_2017336_2017110.unLockShared();
 
 		return r;
 	}
@@ -118,13 +114,10 @@ public class Transaction_2017336_2017110 {
 	 * Needs Read Access only on the variable TotalReservations
 	 */
 	public int total_reservations() {
-		System.out.println("Chkpt1");
 		CCM_2017336_2017110.getSharedLock();
-		System.out.println("Chkpt2");
 	    int val = Database_2017336_2017110.getTotalReservations();
-	    System.out.println("Chkpt3");
 		CCM_2017336_2017110.unLockShared();
-		System.out.println("Chkpt4");
+
 		return val;
 	}
 	
@@ -140,11 +133,9 @@ public class Transaction_2017336_2017110 {
 	 * 3. All Passengers of fid_from
 	 */
 	public void transfer(int fid_from, int fid_to, int pid) {
-//		CCM_2017336_2017110.getSharedLock();
-		CCM_2017336_2017110.getExclusiveLock();
+		CCM_2017336_2017110.getSharedLock();
 		boolean check = Database_2017336_2017110.getFlight(fid_to).possibleAddition() && Database_2017336_2017110.getFlight(fid_from).has(pid); 
-//		CCM_2017336_2017110.unLockShared();
-		CCM_2017336_2017110.unLockExclusive();
+		CCM_2017336_2017110.unLockShared();
 		
 		if(check) {
 			this.cancel(fid_from,pid);
