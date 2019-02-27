@@ -52,9 +52,12 @@ public final class CCM_2017336_2017110 {
 		System.out.println("Thread #" + currentThread.getId()+" got XLock, currently, lock:"+databaseLock);
 	}
 
-	public static synchronized void unLockShared() {
+	public static void unLockShared() {
+		System.out.println("Chkpt10");
 		assert databaseLock>=2;		
+		System.out.println("Chkpt11");
 		Thread currentThread = Thread.currentThread();
+		System.out.println("Chkpt12");
 	    System.out.println("Thread #" + currentThread.getId()+" doing unLockS(), currently, lock:"+databaseLock);
 	    
 	    if(databaseLock==2)
