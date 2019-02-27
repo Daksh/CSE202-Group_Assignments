@@ -2,8 +2,6 @@ import java.util.ArrayList;
 
 public final class CCM_2017336_2017110 {
 	private static boolean databaseLock;
-		
-	private static final SyncLock_2017336_2017110 LOCK_Obj = new SyncLock_2017336_2017110();
 	
 	public static void initLock() {
 		databaseLock = false;

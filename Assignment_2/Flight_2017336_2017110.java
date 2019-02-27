@@ -4,7 +4,7 @@ import java.util.Random;
 public class Flight_2017336_2017110 {
 	int id;
 	int capacity;
-	ArrayList<Passenger_2017336_2017110> passengersList = new ArrayList<Passenger_2017336_2017110>();
+	ArrayList<Integer> passengersList = new ArrayList<Integer>();
 	
 	Random rand = new Random();
 	
@@ -15,9 +15,8 @@ public class Flight_2017336_2017110 {
 			System.out.println("Creating a flight: ID "+this.id+"\t capacity "+this.capacity);
 	}
 	
-	public void addPassenger(Passenger_2017336_2017110 p) {
-		assert p!=null;
-		this.passengersList.add(p);
+	public void addPassenger(int passenger_id) {
+		this.passengersList.add(passenger_id);
 	}
 	
 	public boolean possibleAddition() {
@@ -27,18 +26,18 @@ public class Flight_2017336_2017110 {
 	public boolean has(int pid) {
 		boolean exists = false;
 		for(int i=0; i<this.passengersList.size(); i++) {
-			if(this.passengersList.get(i).id==pid)
+			if(this.passengersList.get(i)==pid)
 				exists = true;
 		}
 		return exists;
 	}
 	
-	public boolean checkPassenger(Passenger_2017336_2017110 passenger) {
-		return this.passengersList.contains(passenger);
+	public boolean checkPassenger(int passenger_id) {
+		return this.passengersList.contains(passenger_id);
 	}
 
-	public void removePassenger(Passenger_2017336_2017110 passenger) {
-		this.passengersList.remove(passenger);
+	public void removePassenger(int passenger_id) {
+		this.passengersList.remove((Object)passenger_id);
 	}
 	
 }

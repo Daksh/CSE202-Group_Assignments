@@ -1,23 +1,21 @@
 Serial - without S/X
-Took: 2902ms for 1 threads: Throughput: 29.025465
-Took: 4822ms for 2 threads: Throughput: 24.111364
-Took: 7772ms for 3 threads: Throughput: 25.90701
-Took: 10064ms for 4 threads: Throughput: 25.16164
-Took: 11472ms for 5 threads: Throughput: 22.945536
-Took: 14359ms for 6 threads: Throughput: 23.931767
-Took: 17010ms for 7 threads: Throughput: 24.300158
-Took: 20133ms for 8 threads: Throughput: 25.166807
-Took: 21747ms for 9 threads: Throughput: 24.163372
-Took: 20606ms for 10 threads: Throughput: 20.606152
-Took: 25540ms for 11 threads: Throughput: 23.218285
-Took: 30376ms for 12 threads: Throughput: 25.313915
-Took: 32972ms for 13 threads: Throughput: 25.363508
-Took: 35763ms for 14 threads: Throughput: 25.545132
-Took: 38365ms for 15 threads: Throughput: 25.576904
-Took: 39471ms for 16 threads: Throughput: 24.669533
-Took: 44935ms for 17 threads: Throughput: 26.432703
-Took: 41179ms for 18 threads: Throughput: 22.877628
-Took: 46271ms for 19 threads: Throughput: 24.353458
-Took: 50634ms for 20 threads: Throughput: 25.317492
-
-Serial - with S/X
+Took: 2770ms for 1 threads: Throughput: 36.09395
+Took: 4688ms for 2 threads: Throughput: 42.658737
+Took: 6284ms for 3 threads: Throughput: 47.73402
+Took: 8722ms for 4 threads: Throughput: 45.857384
+Took: 11139ms for 5 threads: Throughput: 44.88524
+Took: 13127ms for 6 threads: Throughput: 45.706577
+Took: 15033ms for 7 threads: Throughput: 46.56344
+Took: 17852ms for 8 threads: Throughput: 44.810932
+Took: 19702ms for 9 threads: Throughput: 45.67941
+Took: 20878ms for 10 threads: Throughput: 47.89595
+Took: 24837ms for 11 threads: Throughput: 44.287315
+Took: 26417ms for 12 threads: Throughput: 45.42407
+Took: 29675ms for 13 threads: Throughput: 43.80706
+Took: 30142ms for 14 threads: Throughput: 46.44568
+Took: 31560ms for 15 threads: Throughput: 47.528023
+Took: 36616ms for 16 threads: Throughput: 43.69616
+Took: 36492ms for 17 threads: Throughput: 46.585217
+Took: 37104ms for 18 threads: Throughput: 48.511658
+Took: 43191ms for 19 threads: Throughput: 43.990112
+Took: 45160ms for 20 threads: Throughput: 44.286472

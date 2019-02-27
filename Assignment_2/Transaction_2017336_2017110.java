@@ -52,7 +52,7 @@ public class Transaction_2017336_2017110 {
 			System.out.println("Reserving Flight #"+fid+" for Passenger #"+pid);
 		
 		if(!reservationExists(passenger, flight) && flight.possibleAddition()) {
-			flight.addPassenger(passenger);
+			flight.addPassenger(passenger.id);
 			passenger.addFlight(flight);
 			Database_2017336_2017110.increaseTotalReservations();
 		}
@@ -65,9 +65,9 @@ public class Transaction_2017336_2017110 {
 	 *  Needs, Read access on a particular passenger, particular flight
 	 */
 	private boolean reservationExists(Passenger_2017336_2017110 passenger, Flight_2017336_2017110 flight) {
-		if(passenger.checkFlight(flight) && flight.checkPassenger(passenger))
+		if(passenger.checkFlight(flight.id) && flight.checkPassenger(passenger.id))
 			return true;
-		else if(!passenger.checkFlight(flight) && !flight.checkPassenger(passenger))
+		else if(!passenger.checkFlight(flight.id) && !flight.checkPassenger(passenger.id))
 			return false;
 		assert 2==3;
 		return false;
@@ -85,10 +85,12 @@ public class Transaction_2017336_2017110 {
 		
 		if(reservationExists(passenger, flight)) {
 			//remove flight-> passenger
-			flight.removePassenger(Database_2017336_2017110.getPassenger(pid));
+			assert Database_2017336_2017110.getPassenger(pid).id==pid;
+			flight.removePassenger(pid);
 			
 			//remove passenger -> flight
-			passenger.removeFlight(Database_2017336_2017110.getFlight(fid));
+			assert Database_2017336_2017110.getFlight(fid).id==fid;
+			passenger.removeFlight(fid);
 			
 			//reduce db -> totalReservations
 			Database_2017336_2017110.reduceTotalReservations();
@@ -130,7 +132,6 @@ public class Transaction_2017336_2017110 {
 	 * The part done here, needs read lock 
 	 * 1. flight fid_to
 	 * 2. flight fid_from
-	 * 3. All Passengers of fid_from
 	 */
 	public void transfer(int fid_from, int fid_to, int pid) throws InterruptedException {
 		CCM_2017336_2017110.getLock();

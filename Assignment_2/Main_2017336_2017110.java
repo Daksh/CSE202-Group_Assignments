@@ -5,14 +5,14 @@
 public class Main_2017336_2017110{
 	public final static int NUM_FLIGHTS = 5;
 	public final static int NUM_PASSENGERS = 60;
-	public final static boolean printDesc = false;
+	public final static boolean printDesc = true;
 	public final static boolean printDebug = false;
 	
 	private static int NUM_THREADS = 6;
 	
     public static void main(String args[]){
-    	for(NUM_THREADS=1;NUM_THREADS<21; NUM_THREADS++) {
-//    	for(NUM_THREADS=8;NUM_THREADS==8; NUM_THREADS++) {
+//    	for(NUM_THREADS=1;NUM_THREADS<21; NUM_THREADS++) {
+    	for(NUM_THREADS=6;NUM_THREADS==6; NUM_THREADS++) {
     		CCM_2017336_2017110.initLock();
         	Transaction_Thread_2017336_2017110[] threadArray = new Transaction_Thread_2017336_2017110[NUM_THREADS];
         	long startTime = System.nanoTime();
